@@ -14,7 +14,7 @@ export default function Home() {
     <Suspense>
       <div className="relative">
         <Head>
-          <title>LA Relief - Discover Aid Near You</title>
+          <title>MediMapAI</title>
           <meta
             name="description"
             content="Find aid and resources near you for emergencies and support."
