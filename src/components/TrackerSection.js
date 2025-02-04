@@ -1,28 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import Head from "next/head";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import React, { useRef } from "react";
 import ScrollArrow from "@/components/ScrollArrow";
-import ResourceCard from "@/components/ResourceCard";
-import Dropdown from "@/components/Dropdown";
-import { Link } from "react-scroll";
-import { scroller } from "react-scroll";
 import { Link as ScrollLink } from "react-scroll";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import {
-  faMagnifyingGlass,
-  faArrowDown,
-  faCalendar,
-  faCalendarAlt,
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
 import "@fontsource/potta-one";
-import CategoryButtons from "@/components/CategoryButtons";
-import { filterResources } from "../components/filter";
 import { motion, useInView } from "framer-motion";
 
 // Dummy navigate function (replace with your own navigation logic)
