@@ -1,7 +1,9 @@
 import "@/styles/globals.css";
 import { Noto_Sans_Multani } from "next/font/google"; // Import Noto Sans Multani
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const notoSansMultani = Noto_Sans_Multani({
   subsets: ["latin"],
@@ -22,9 +24,11 @@ export default function App({ Component, pageProps }) {
           font-family: ${notoSansMultani.style.fontFamily}, sans-serif;
         }
       `}</style>
+      <NavBar />
       <main>
         <Component {...pageProps} />
       </main>
+      <Footer />
     </>
   );
 }
