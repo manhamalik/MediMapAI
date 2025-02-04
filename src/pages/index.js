@@ -36,7 +36,7 @@ export default function Home() {
         ></div>
 
         {/* Navigation Bar */}
-        <NavBar />
+        {/* <NavBar /> */}
 
         {/* Landing Section */}
         <div
