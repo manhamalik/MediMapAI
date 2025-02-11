@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import Head from "next/head";
 import NavBar from "@/components/NavBar";
 import ScrollArrow from "@/components/ScrollArrow";
@@ -31,12 +31,9 @@ export default function Home() {
           id="hero"
           className="absolute inset-0 bg-cover bg-center h-screen z-0"
           style={{
-            backgroundImage: "url('/images/background.png')",
+            backgroundImage: "url('/images/marm.png')",
           }}
         ></div>
-
-        {/* Navigation Bar */}
-        {/* <NavBar /> */}
 
         {/* Landing Section */}
         <div
@@ -45,9 +42,24 @@ export default function Home() {
         >
           <div className="absolute bottom-8 w-full flex justify-center items-center">
             {/* Scroll Arrow Component */}
-            <ScrollArrow to="tracker" />
+            <ScrollArrow to="second" />
           </div>
         </div>
+
+        {/* second Section */}
+        <section
+          id="second"
+          className="relative bg-cover bg-center h-screen"
+          style={{ backgroundImage: "url('/images/second.png')" }}
+        >
+          <div className="flex flex-col justify-center items-center h-full">
+            {/* Add content for second section here */}
+          </div>
+          <div className="absolute bottom-8 w-full flex justify-center items-center">
+            {/* ScrollArrow Component */}
+            <ScrollArrow to="tracker" />
+          </div>
+        </section>
 
         {/* Sections */}
         <TrackerSection />
@@ -56,7 +68,7 @@ export default function Home() {
         <TumorGuideSection />
 
         {/* FAQ Section */}
-        <section id="faqs" className="bg-[#183917] py-10">
+        <section id="faqs" className="bg-[#03657F] py-10">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="relative text-center">
               <span

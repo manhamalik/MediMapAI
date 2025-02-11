@@ -124,7 +124,7 @@ export default function Contact() {
             fontSize: "4rem",
           }}
         >
-          CONTACT
+          ABOUT
         </motion.h1>
 
         {/* Thank You Screen After Submission */}

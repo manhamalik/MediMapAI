@@ -16,12 +16,12 @@ const MissionSection = () => {
   return (
     <section
       id="tracker"
-      className="bg-[#183917] text-white min-h-screen flex items-center justify-center px-4 md:px-8 relative overflow-hidden overflow-x-hidden"
+      className="bg-[#000] text-white min-h-screen flex items-center justify-center px-4 md:px-8 relative overflow-hidden overflow-x-hidden"
     >
       <div>
         {/* Lighter green square on right with drop shadow */}
         <div
-          className="absolute top-0 right-0 h-full bg-[#267738] rounded-tl-[160px] rounded-bl-[100px]"
+          className="absolute top-0 right-0 h-full bg-[#03657F] rounded-tl-[160px] rounded-bl-[100px]"
           style={{
             zIndex: 0,
             width: "30.5%",
@@ -128,7 +128,7 @@ const MissionSection = () => {
               whileInView={{ x: 0, opacity: 1, rotate: -90 }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
-              SUPPORT
+              TRACKER
             </motion.div>
 
             <motion.div
@@ -145,7 +145,7 @@ const MissionSection = () => {
               whileInView={{ x: 0, opacity: 1, rotate: -90 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
             >
-              SUPPORT
+              TRACKER
             </motion.div>
           </div>
         </div>

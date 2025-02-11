@@ -3,6 +3,8 @@ import React from 'react';
 const sectionStyle = {
   height: '100vh', // Full viewport height
   display: 'flex',
+  backgroundColor: '#1D3254',
+  color: '#fff',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
