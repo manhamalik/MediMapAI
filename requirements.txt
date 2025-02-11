@@ -1,0 +1,13 @@
+fastapi==0.110.0
+uvicorn
+requests
+pydantic
+langchain
+clarifai
+Pillow
+tensorflow
+numpy
+keras
+python-multipart
+torch
+torchvision
