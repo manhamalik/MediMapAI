@@ -84,7 +84,7 @@ export default function Home() {
       className="relative w-full min-h-screen bg-cover bg-center bg-black"
       style={{ 
         backgroundImage: "url('/images/fourth-section.png')",
-        backgroundSize: "8vw",
+        backgroundSize: "84vw",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center"
       }}
