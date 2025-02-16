@@ -81,10 +81,10 @@ export default function Home() {
 
     <section
       id="fourth"
-      className="relative w-full h-screen bg-cover bg-center bg-black"
+      className="relative w-full min-h-screen bg-cover bg-center bg-black"
       style={{ 
         backgroundImage: "url('/images/fourth-section.png')",
-        backgroundSize: "85vw",
+        backgroundSize: "8vw",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center"
       }}
