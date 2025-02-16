@@ -1,20 +1,38 @@
-import React from 'react';
+import React from "react";
+import ScrollArrow from "@/components/ScrollArrow";
 
 const TumorDetection = () => {
   return (
-    <div style={{ 
-      height: '100vh', 
-      width: '100vw', 
-      backgroundColor: '#1D3254', 
-      color: '#fff', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      justifyContent: 'center', 
-      alignItems: 'center' 
-    }}>
-      <h1>Tumor Detection Page</h1>
-      <p>This is the tumor detection page. Content will be added here soon.</p>
-    </div>
+    <>
+      {/* First Section */}
+      <section
+        id="first"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/td-first.png')",
+          backgroundSize: "90vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="second" />
+        </div>
+      </section>
+
+      {/* Second Section */}
+      <section
+        id="second"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/fifth-section.png')",
+          backgroundSize: "85vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+      </section>
+    </>
   );
 };
 

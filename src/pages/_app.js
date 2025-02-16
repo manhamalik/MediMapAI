@@ -10,6 +10,7 @@ import "@/styles/globals.css";
 import { Noto_Sans_Multani } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot"; // Import your Chatbot component here
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
       <NavBar />
+      <Chatbot /> {/* Render the Chatbot component */}
       <main>
         <Component {...pageProps} />
       </main>

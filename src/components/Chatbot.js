@@ -4,43 +4,58 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Static FAQ data based on your provided FAQ dropdowns
+// Updated FAQ data for MediMap AI
 const staticFaqs = [
   {
-    Question: "How can I volunteer or contribute?",
+    Question: "How does MediMap AI detect brain tumors?",
     Answer:
-      "You can explore volunteer opportunities and donation needs by navigating through the interactive map or selecting the 'Volunteer Opportunities' or 'Donations Needed' buttons on the website. Additionally, you can click the 'Volunteer' or 'Donate' buttons in the navigation bar to visit dedicated pages and explore available opportunities or postings.",
+      "MediMap AI uses advanced AI models trained on MRI scans to analyze images, detect tumors, measure size, and predict growth patterns. The system leverages deep learning and computer vision to provide high-precision diagnostics.",
   },
   {
-    Question: "What types of donations are accepted?",
+    Question: "What types of brain tumors can the AI detect?",
     Answer:
-      "We accept various types of donations, such as food, hygiene supplies, medical items, and pet supplies. Specific donation needs can be found under the 'Donations Needed' tab on the map and on the Donations page.",
+      "The AI can identify various types of brain tumors, including gliomas, meningiomas, pituitary tumors, and more. The detection is based on medical imaging patterns and AI-driven classification models.",
   },
   {
-    Question: "How do I find resources or assistance near me?",
+    Question: "How accurate is the AI tumor detection?",
     Answer:
-      "You can enter your address in the map's search bar to view nearby resources, shelters, and services. From there, you can explore by categories such as Essentials, Shelter & Support Services, Medical & Health, or Animal Support.",
+      "MediMap AI is built using state-of-the-art machine learning models, achieving high accuracy of 99% comparable to radiologists. However, it is not a replacement for medical diagnosis, and users should consult a healthcare professional for final evaluation.",
   },
   {
-    Question: "What should I do in case of a wildfire evacuation?",
+    Question: "Can I use MediMap AI for personal health tracking?",
     Answer:
-      "Follow designated evacuation routes and instructions from authorities. Bring essential documents, medications, and emergency supplies. Secure your home by locking doors and turning off utilities if time permits. Check on neighbors and assist those in need. Stay informed through updates from local emergency services.",
+      "Yes! MediMap AI includes a symptom tracker that lets you log daily health patterns, track recurring symptoms, and generate reports to discuss with your doctor.",
   },
   {
-    Question: "How do I contact you to add information or organizations to the website?",
+    Question: "Do I need a medical background to use MediMap AI?",
     Answer:
-      "If you would like to contribute information, suggest an organization, or report updates, please use the contact form on the 'Contact Us' page or email us directly.",
+      "Not at all! MediMap AI is designed for patients, caregivers, and medical professionals alike. The interface is user-friendly, with easy-to-understand reports for personal or clinical use.",
   },
   {
-    Question: "How often is the map and resource list updated?",
+    Question: "How can I access my tumor analysis report?",
     Answer:
-      "The map and resource list are updated daily to reflect the latest information about resources, donations, and volunteer needs.",
+      "Once you upload an MRI scan, MediMap AI generates a detailed report including tumor type, size, and potential growth risk. You can download your report for personal records or share it with a healthcare provider.",
   },
   {
-    Question: "Can I collaborate with LARelief to list my organization’s opportunities?",
+    Question: "Is my medical data secure?",
     Answer:
-      "Absolutely! Use the Google Form on the Contact page to share your organization’s details, volunteer opportunities, or donation requests. Our team will review and add it to the platform.",
+      "Yes! MediMap AI follows strict security protocols to ensure patient data privacy and compliance with healthcare regulations. Your uploads are secure and encrypted.",
   },
+  {
+    Question: "Can doctors use MediMap AI for clinical purposes?",
+    Answer:
+      "MediMap AI is designed to support medical professionals by providing AI-assisted insights. However, it should be used as a supplementary tool, and final diagnoses should always be made by a qualified radiologist or doctor.",
+  },
+  {
+    Question: "Does MediMap AI require registration to use?",
+    Answer:
+      "You can access basic features without an account, but registration unlocks full functionality, including symptom tracking, history logs, and downloadable reports.",
+  },
+  // {
+  //   Question: "How can I contact MediMap AI for support or suggestions?",
+  //   Answer:
+  //     "For inquiries, feature requests, or collaboration opportunities, send us an email at ______@gmail.com",
+  // },
 ];
 
 export default function Chatbot() {
@@ -57,7 +72,7 @@ export default function Chatbot() {
       buttons: true,
       text: (
         <p>
-          Welcome! Click any FAQ for answers, or visit our Contact page and email us if you need more help!
+          Have a question about MediMap AI? Just click below, and I’ll break it down for you!
         </p>
       ),
     },
@@ -66,7 +81,7 @@ export default function Chatbot() {
   const [typing, setTyping] = useState(false);
   const [dots, setDots] = useState("");
 
-  // Use static FAQ data
+  // Use updated static FAQ data
   const [faqs] = useState(staticFaqs);
 
   const messagesEndRef = useRef(null);

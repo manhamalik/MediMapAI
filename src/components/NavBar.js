@@ -11,7 +11,7 @@ const NavBar = () => {
     >
       {/* Logo */}
       <Link href="/">
-        <img src="/images/log.jpeg" alt="Logo" className="w-[11vw] h-auto" />
+        <img src="/images/new-logo.png" alt="Logo" className="w-[11vw] h-auto" />
       </Link>
 
       {/* Navigation Links */}

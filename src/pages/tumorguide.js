@@ -1,45 +1,118 @@
-import React from 'react';
-
-const sectionStyle = {
-  height: '100vh', // Full viewport height
-  display: 'flex',
-  backgroundColor: '#1D3254',
-  color: '#fff',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '20px',
-  boxSizing: 'border-box',
-};
+import React from "react";
+import ScrollArrow from "@/components/ScrollArrow";
 
 const TumorGuide = () => {
   return (
-    <div>
-      <section id="types" style={sectionStyle}>
-        <h1>Tumor Guide</h1>
-        <h2>Types & Causes</h2>
-        <p>
-          Learn about the different types of tumors and their causes. This section provides an overview
-          of how tumors develop and the factors that contribute to their formation.
-        </p>
+    <>
+      {/* First Section */}
+      <section
+        id="first"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-first.png')",
+          backgroundSize: "100vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="second" />
+        </div>
       </section>
 
-      <section id="symptoms" style={sectionStyle}>
-        <h2>Symptoms</h2>
-        <p>
-          Understand the common symptoms of tumors. This section explains the warning signs that
-          could indicate the presence of a tumor and when to seek medical advice.
-        </p>
+      {/* Second Section */}
+      <section
+        id="second"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-second.png')",
+          backgroundSize: "80vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="third" />
+        </div>
       </section>
 
-      <section id="treatments" style={sectionStyle}>
-        <h2>Treatments</h2>
-        <p>
-          Explore the treatment options available for different types of tumors. This section covers
-          surgical, medical, and alternative therapies to manage or remove tumors.
-        </p>
+      {/* Third Section */}
+      <section
+        id="third"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-third.png')",
+          backgroundSize: "90vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="fourth" />
+        </div>
       </section>
-    </div>
+
+      {/* Fourth Section */}
+      <section
+        id="fourth"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-fourth.png')",
+          backgroundSize: "100vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="fifth" />
+        </div>
+      </section>
+
+      {/* Fifth Section */}
+      <section
+        id="fifth"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-fifth.png')",
+          backgroundSize: "70vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="sixth" />
+        </div>
+      </section>
+
+      {/* Sixth Section */}
+      <section
+        id="sixth"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-sixth.png')",
+          backgroundSize: "70vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+        <div className="absolute bottom-8 w-full flex justify-center items-center">
+          <ScrollArrow to="seventh" />
+        </div>
+      </section>
+
+       {/* Seventh Section */}
+       <section
+        id="seventh"
+        className="relative w-full h-screen bg-cover bg-center bg-black"
+        style={{ 
+          backgroundImage: "url('/images/tg-seventh.png')",
+          backgroundSize: "68vw",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center" 
+        }}
+      >
+      </section>
+    </>
   );
 };
 

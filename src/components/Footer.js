@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="logo">
           <div className="hidden select-none w-56 sm:block">
             <Image
-              src="/images/footer.png"
+              src="/images/new-logo.png"
               alt="LARelief"
               width={261}
               height={80}
@@ -20,7 +20,7 @@ export default function Footer() {
           </div>
           <div className="block select-none w-36 h-6 sm:hidden">
             <Image
-              src="/images/footer.png"
+              src="/images/new-logo.png"
               alt="LARelief"
               width={261}
               height={80}
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
         <span className="footer-text select-none">
           2025 © MediMapAI.
-          <br /> All rights reserved
+          <br /> All rights reserved.
         </span>
       </div>
       <style jsx>{`
