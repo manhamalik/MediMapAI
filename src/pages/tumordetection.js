@@ -1,39 +1,343 @@
-import React from "react";
-import ScrollArrow from "@/components/ScrollArrow";
+import React, { useState } from "react";
+import "@fontsource/tilt-warp"; // npm install @fontsource/tilt-warp
+import "@fontsource/noto-sans"; // npm install @fontsource/noto-sans
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowUp, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import jsPDF from "jspdf"; //npm install jspdf
+import scrollElement from "react-scroll/modules/mixins/scroll-element";
 
-const TumorDetection = () => {
-  return (
-    <>
-      {/* First Section */}
-      <section
-        id="first"
-        className="relative w-full h-screen bg-cover bg-center bg-black"
-        style={{ 
-          backgroundImage: "url('/images/td-first.png')",
-          backgroundSize: "90vw",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center" 
-        }}
-      >
-        <div className="absolute bottom-8 w-full flex justify-center items-center">
-          <ScrollArrow to="second" />
-        </div>
-      </section>
-
-      {/* Second Section */}
-      <section
-        id="second"
-        className="relative w-full h-screen bg-cover bg-center bg-black"
-        style={{ 
-          backgroundImage: "url('/images/fifth-section.png')",
-          backgroundSize: "85vw",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center" 
-        }}
-      >
-      </section>
-    </>
-  );
+const preSavedResults = {
+  "images/tryout- Meningioma.png": {
+    tumorType: "Meningioma",
+    area: "23.5 cm²",
+    volume: "12.8 cm³",
+    growthRisk: "18% over the next 6 months",
+  },
+  "images/tryout- Pituitary Tumors (Pituitary Microadenoma).png": {
+    tumorType: "Pituitary Tumor",
+    area: "19.4 cm²",
+    volume: "10.2 cm³",
+    growthRisk: "12% over the next 6 months",
+  },
+  "img/test_image2.png": {
+    tumorType: "Glioma",
+    area: "28.1 cm²",
+    volume: "15.3 cm³",
+    growthRisk: "25% over the next 6 months",
+  },
 };
+
+function TumorDetection() {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [prediction, setPrediction] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [showResult, setShowResult] = useState(false); // Track if the analysis is completed
+
+  // Handle file selection
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  // Function to call the Hugging Face API
+  const classifyTumor = async (imageFile) => {
+    const formData = new FormData();
+    formData.append("file", imageFile);
+
+    try {
+      const response = await fetch(
+        "https://e1z-tumormodels.hf.space/predict/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setPrediction(result.prediction);
+      setShowResult(true); // Switch to result screen
+    } catch (error) {
+      console.error("Error calling API:", error);
+      setPrediction("Error processing image.");
+    }
+  };
+
+  // Handle upload button click
+  const handleUpload = () => {
+    if (!selectedFile) {
+      alert("Please select an image first.");
+      return;
+    }
+    classifyTumor(selectedFile);
+  };
+
+  const handlePreSavedAnalysis = (imagePath) => {
+    setImagePreview(imagePath);
+    setPrediction(preSavedResults[imagePath].tumorType);
+    setShowResult(true);
+  };
+
+  const downloadAnalysisPDF = () => {
+    const doc = new jsPDF();
+    doc.setFont("helvetica");
+    doc.text("Tumor Analysis Report", 20, 20);
+    doc.text(`Detected Tumor: ${prediction || "Meningioma"}`, 20, 40);
+    doc.text("Tumor Size & Volume", 20, 60);
+    doc.text(`Area: 23.5 cm²`, 20, 70);
+    doc.text(`Volume: 12.8 cm³`, 20, 80);
+    doc.text("Growth Probability", 20, 100);
+    doc.text(`Estimated Growth Risk: 18% over the next 6 months`, 20, 110);
+    doc.text("Recommendations", 20, 130);
+    doc.text("- Follow-up MRI in 6–12 months", 20, 140);
+    doc.text("- If experiencing headaches, consult a neurologist", 20, 150);
+    doc.text("- Regular MRI monitoring is recommended", 20, 160);
+    doc.save("Tumor_Analysis_Report.pdf");
+  };
+
+  const scrollElement = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section>
+      <div
+        style={{
+          backgroundImage: "url('images/image 1769.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "100vh",
+          width: "100%",
+          fontFamily: "Tilt Warp",
+        }}
+        className="flex items-center justify-center text-white h-screen"
+      >
+        <div className="flex flex-col max-w-4xl text-white text-start mb-10">
+          <h1 className="text-5xl text-[4rem] leading-[5rem] mb-8">
+            Instant Tumor Detection.
+            <br />
+            <span className="text-cyan-500/100">AI-Powered</span>
+            <span className="text-[#F5CA90]">Precision.</span>
+          </h1>
+          <h2
+            className="w-3/5 mb-6 text-2xl md:text-3xl"
+            style={{ fontFamily: "Noto Sans" }}
+          >
+            Analyze your MRI scans with advanced AI models to detect tumors,
+            measure size, and predict growth.
+          </h2>
+          <button
+            className="mt-4 text-3xl border border-[#5EDEF4] font-bold bg-black w-[21rem] h-[5rem] rounded-[24px] shadow-lg shadow-cyan-500/50 hover:bg-cyan-500/100 transition-all duration-300"
+            onClick={() => scrollElement("run-analysis")}
+          >
+            START AI DETECITON
+          </button>
+        </div>
+
+        <img
+          src="images/tumordectionhero.png"
+          alt="Tumor Detection"
+          className=" h-2/3 mb-16"
+        />
+      </div>
+
+      <div
+        className="flex flex-col justify-center items-center bg-black text-white p-6 min-h-screen w-full sm:text-base"
+        style={{
+          fontFamily: "Tilt Warp",
+          fontSize: "1.5rem",
+        }}
+      >
+        {showResult ? (
+          // RESULT SCREEN
+          <div className="flex flex-col lg:flex-row gap-16 items-center mx-w-full p-8">
+            <div className="flex-col justify-center lg:w-2/5">
+              <div
+                className="flex border-2 border-white text-[1.2rem] rounded-[13px] p-4 w-sm hover:bg-white hover:text-black transition-all duration-300 cursor-pointer mb-3"
+                onClick={() => setShowResult(false)}
+              >
+                <FontAwesomeIcon icon={faAngleLeft} className="mr-2" />
+                Upload Another Image
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src={imagePreview}
+                  alt="Tumor MRI"
+                  className="w-full rounded-lg border p-4 border-gray-500 hover:opacity-80"
+                />
+                <button
+                  className="mt-6 text-[1.7rem] border border-[#5EDEF4] font-bold bg-black p-6 rounded-[28px] hover:bg-cyan-500/100 transition-all duration-300"
+                  onClick={downloadAnalysisPDF}
+                >
+                  DOWNLOAD FULL ANALYSIS
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col w-3/5">
+              <h2 className="text-[1.8rem] text-cyan-400 mb-2">
+                TYPE OF TUMOR
+              </h2>
+              <p>
+                <strong>Detected:</strong> {prediction || "Meningioma"}
+              </p>
+              <p
+                className="mt-2 text-[1.2rem] w-[55rem] leading-6"
+                style={{ fontFamily: "Noto Sans" }}
+              >
+                This is a typically benign tumor that forms in the protective
+                layers of the brain. Size monitoring is essential to assess
+                potential growth.
+              </p>
+              <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
+                TUMOR SIZE & VOLUME
+              </h2>
+              <p>
+                <strong>Area:</strong> 23.5 cm²
+              </p>
+              <p className="mt-2">
+                <strong>Volume:</strong> 12.8 cm³
+              </p>
+              <p
+                className="mt-2 text-[1.2rem] w-[55rem] leading-6"
+                style={{ fontFamily: "Noto Sans" }}
+              >
+                The tumor is localized with well-defined borders, commonly
+                observed in meningiomas. Size monitoring is essential to assess
+                potential growth.
+              </p>
+              <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
+                GROWTH PROBABILITY
+              </h2>
+              <p>
+                <strong>Estimated Growth Risk:</strong> 18% over the next 6
+                months
+              </p>
+              <p
+                className="mt-2 text-[1.2rem] w-[55rem] leading-6"
+                style={{ fontFamily: "Noto Sans" }}
+              >
+                AI-based analysis suggests a low-to-moderate risk of tumor
+                expansion. Regular imaging and clinical evaluations are
+                recommended to track any changes.
+              </p>
+              <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
+                RECOMMENDATIONS
+              </h2>
+              <ul
+                className="list-disc pl-6 mt-2 text-[1.2rem] w-[55rem] leading-6"
+                style={{ fontFamily: "Noto Sans" }}
+              >
+                <li>
+                  Consider a follow-up MRI in 6–12 months to monitor potential
+                  changes.
+                </li>
+                <li>
+                  If experiencing headaches, vision issues, or cognitive
+                  symptoms, consult a neurologist.
+                </li>
+                <li>
+                  Treatment often involves regular monitoring through MRI scans,
+                  with intervention only if the tumor grows or causes symptoms.
+                </li>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          // UPLOAD SCREEN
+          <div
+            id="run-analysis"
+            className="flex lg:flex-row flex-col items-center gap-2"
+          >
+            <div className="flex flex-col items-center w-full">
+              <div className="border-2 border-white rounded-[20px] p-10 text-center w-full lg:w-[43rem] h-[20rem] justify-center items-center">
+                <label htmlFor="fileUpload" className="cursor-pointer block">
+                  <FontAwesomeIcon
+                    icon={faCloudArrowUp}
+                    className="sm:w-20 lg:w-40 h-40"
+                  />
+                </label>
+                <label className="text-[2.4rem] font-semibold">
+                  Select files to upload
+                </label>
+                <input
+                  type="file"
+                  className="hidden"
+                  id="fileUpload"
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
+              </div>
+
+              <div className="mt-12 text-center">
+                <p className="text-[1.5rem] font-semibold">
+                  Or click images to try out
+                </p>
+                <div className="flex flex-row gap-4 mt-12">
+                  {Object.keys(preSavedResults).map((imagePath) => (
+                    <img
+                      key={imagePath}
+                      src={imagePath}
+                      alt="Sample MRI"
+                      className="lg:w-60 lg:h-56 w-28 h-34 rounded-lg cursor-pointer border border-gray-500 hover:opacity-80"
+                      onClick={() => handlePreSavedAnalysis(imagePath)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center w-full ">
+              <button
+                className="text-[2rem] mt-4 border border-[#5EDEF4] font-bold bg-black w-1/2 h-[4rem] rounded-[20px] shadow-lg shadow-cyan-500/50 hover:bg-cyan-500/100 transition-all duration-300"
+                onClick={handleUpload}
+              >
+                RUN ANALYSIS
+              </button>
+
+              <div className="mt-8 md:ml-[5vw]">
+                <h2 className=" text-4xl mt-6">AI-Driven Tumor Detection</h2>
+                <p
+                  className="mt-2 text-[1.5rem] w-[40rem] leading-8"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  Pinpoint whether the tumor is glioma, meningioma, pituitary,
+                  or benign with cutting-edge classification models.
+                </p>
+                <h2 className=" text-4xl mt-6"> High-Precision Tumor Sizing</h2>
+                <p
+                  className="mt-2 text-[1.5rem] w-[40rem] leading-8"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  Generate a detailed, segmented visualization of the tumor with
+                  exact size and volume metrics for deeper analysis.
+                </p>
+                <h2 className=" text-4xl mt-6">
+                  {" "}
+                  Predictive Growth Intelligence
+                </h2>
+                <p
+                  className="mt-2 text-[1.5rem] w-[40rem] leading-8"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  Uncover the tumor’s growth trajectory with advanced AI
+                  modeling, equipping you with crucial insights for proactive
+                  care.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
 
 export default TumorDetection;

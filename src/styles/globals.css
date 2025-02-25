@@ -111,3 +111,8 @@ input[type='number'] {
 .my-custom-popup .leaflet-popup-content {
   transform: translateX(-7vw) translateY(-4.7vw);
 }
+
+.content {
+  font-size: 1.28rem;
+  color: rgb(152, 152, 152);
+}
