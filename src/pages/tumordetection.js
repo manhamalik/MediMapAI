@@ -9,27 +9,34 @@ import scrollElement from "react-scroll/modules/mixins/scroll-element";
 const preSavedResults = {
   "images/tryout- Meningioma.png": {
     tumorType: "Meningioma",
-    area: "23.5 cm²",
-    volume: "12.8 cm³",
-    growthRisk: "18% over the next 6 months",
+    area: "23.5",
+    volume: "12.8",
+    growthRisk: "18%",
   },
   "images/tryout- Pituitary Tumors (Pituitary Microadenoma).png": {
     tumorType: "Pituitary Tumor",
-    area: "19.4 cm²",
-    volume: "10.2 cm³",
-    growthRisk: "12% over the next 6 months",
+    area: "19.4",
+    volume: "10.2",
+    growthRisk: "12%",
   },
   "img/test_image2.png": {
-    tumorType: "Glioma",
-    area: "28.1 cm²",
-    volume: "15.3 cm³",
-    growthRisk: "25% over the next 6 months",
+    tumorType: "No Tumor",
   },
+};
+
+const tumorExplanation = {
+  meningioma:
+    "This is an abnormal growth in the pituitary gland, a small gland at the brain’s base that regulates hormones.",
+  pituitary:
+    "This is an abnormal growth in the pituitary gland, a small gland at the brain’s base that regulates hormones.",
 };
 
 function TumorDetection() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [prediction, setPrediction] = useState("");
+  const [area, setArea] = useState("");
+  const [volume, setVolume] = useState("");
+  const [growthRisk, setGrowthRisk] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [showResult, setShowResult] = useState(false); // Track if the analysis is completed
 
@@ -81,6 +88,9 @@ function TumorDetection() {
   const handlePreSavedAnalysis = (imagePath) => {
     setImagePreview(imagePath);
     setPrediction(preSavedResults[imagePath].tumorType);
+    setArea(preSavedResults[imagePath].area);
+    setVolume(preSavedResults[imagePath].volume);
+    setGrowthRisk(preSavedResults[imagePath].growthRisk);
     setShowResult(true);
   };
 
@@ -158,99 +168,112 @@ function TumorDetection() {
         }}
       >
         {showResult ? (
-          // RESULT SCREEN
-          <div className="flex flex-col lg:flex-row gap-16 items-center mx-w-full p-8">
-            <div className="flex-col justify-center lg:w-2/5">
+          prediction === "No Tumor" ? (
+            // NO TUMOR SCREEN
+            <div className="flex flex-col items-center justify-center">
+              <h2 className="text-[1.8rem] text-cyan-400">NO TUMOR DETECTED</h2>
               <div
-                className="flex border-2 border-white text-[1.2rem] rounded-[13px] p-4 w-sm hover:bg-white hover:text-black transition-all duration-300 cursor-pointer mb-3"
+                className="flex border-2 mb-10 border-white text-[1.2rem] rounded-[13px] items-centre p-4 w-sm hover:bg-white hover:text-black transition-all duration-300 cursor-pointer mt-10"
                 onClick={() => setShowResult(false)}
               >
                 <FontAwesomeIcon icon={faAngleLeft} className="mr-2" />
                 Upload Another Image
               </div>
-              <div className="flex flex-col items-center">
-                <img
-                  src={imagePreview}
-                  alt="Tumor MRI"
-                  className="w-full rounded-lg border p-4 border-gray-500 hover:opacity-80"
-                />
-                <button
-                  className="mt-6 text-[1.7rem] border border-[#5EDEF4] font-bold bg-black p-6 rounded-[28px] hover:bg-cyan-500/100 transition-all duration-300"
-                  onClick={downloadAnalysisPDF}
+            </div>
+          ) : (
+            // RESULT SCREEN
+            <div className="flex flex-col lg:flex-row gap-16 items-center mx-w-full p-8">
+              <div className="flex-col justify-center lg:w-2/5">
+                <div
+                  className="flex border-2 border-white text-[1.2rem] rounded-[13px] p-4 w-sm hover:bg-white hover:text-black transition-all duration-300 cursor-pointer mb-3"
+                  onClick={() => setShowResult(false)}
                 >
-                  DOWNLOAD FULL ANALYSIS
-                </button>
+                  <FontAwesomeIcon icon={faAngleLeft} className="mr-2" />
+                  Upload Another Image
+                </div>
+                <div className="flex flex-col items-center">
+                  <img
+                    src={imagePreview}
+                    alt="Tumor MRI"
+                    className="w-full rounded-lg border p-4 border-gray-500 hover:opacity-80"
+                  />
+                  <button
+                    className="mt-6 text-[1.7rem] border border-[#5EDEF4] font-bold bg-black p-6 rounded-[28px] hover:bg-cyan-500/100 transition-all duration-300"
+                    onClick={downloadAnalysisPDF}
+                  >
+                    DOWNLOAD FULL ANALYSIS
+                  </button>
+                </div>
+              </div>
+              <div className="flex flex-col w-3/5">
+                <h2 className="text-[1.8rem] text-cyan-400 mb-2">
+                  TYPE OF TUMOR
+                </h2>
+                <p>
+                  <strong>Detected:</strong> {prediction || "No Tumor"}
+                </p>
+                <p
+                  className="mt-2 text-[1.2rem] w-[55rem] leading-6"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  {tumorExplanation[prediction.toLowerCase().split(" ")[0]]}
+                </p>
+                <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
+                  TUMOR SIZE & VOLUME
+                </h2>
+                <p>
+                  <strong>Area:</strong> {area} cm²
+                </p>
+                <p className="mt-2">
+                  <strong>Volume:</strong> {volume} cm³
+                </p>
+                <p
+                  className="mt-2 text-[1.2rem] w-[55rem] leading-6"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  The tumor is localized with well-defined borders, commonly
+                  observed in meningiomas. Size monitoring is essential to
+                  assess potential growth.
+                </p>
+                <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
+                  GROWTH PROBABILITY
+                </h2>
+                <p>
+                  <strong>Estimated Growth Risk:</strong> {growthRisk} over the
+                  next 6 months
+                </p>
+                <p
+                  className="mt-2 text-[1.2rem] w-[55rem] leading-6"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  AI-based analysis suggests a low-to-moderate risk of tumor
+                  expansion. Regular imaging and clinical evaluations are
+                  recommended to track any changes.
+                </p>
+                <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
+                  RECOMMENDATIONS
+                </h2>
+                <ul
+                  className="list-disc pl-6 mt-2 text-[1.2rem] w-[55rem] leading-6"
+                  style={{ fontFamily: "Noto Sans" }}
+                >
+                  <li>
+                    Consider a follow-up MRI in 6–12 months to monitor potential
+                    changes.
+                  </li>
+                  <li>
+                    If experiencing headaches, vision issues, or cognitive
+                    symptoms, consult a neurologist.
+                  </li>
+                  <li>
+                    Treatment often involves regular monitoring through MRI
+                    scans, with intervention only if the tumor grows or causes
+                    symptoms.
+                  </li>
+                </ul>
               </div>
             </div>
-            <div className="flex flex-col w-3/5">
-              <h2 className="text-[1.8rem] text-cyan-400 mb-2">
-                TYPE OF TUMOR
-              </h2>
-              <p>
-                <strong>Detected:</strong> {prediction || "Meningioma"}
-              </p>
-              <p
-                className="mt-2 text-[1.2rem] w-[55rem] leading-6"
-                style={{ fontFamily: "Noto Sans" }}
-              >
-                This is a typically benign tumor that forms in the protective
-                layers of the brain. Size monitoring is essential to assess
-                potential growth.
-              </p>
-              <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
-                TUMOR SIZE & VOLUME
-              </h2>
-              <p>
-                <strong>Area:</strong> 23.5 cm²
-              </p>
-              <p className="mt-2">
-                <strong>Volume:</strong> 12.8 cm³
-              </p>
-              <p
-                className="mt-2 text-[1.2rem] w-[55rem] leading-6"
-                style={{ fontFamily: "Noto Sans" }}
-              >
-                The tumor is localized with well-defined borders, commonly
-                observed in meningiomas. Size monitoring is essential to assess
-                potential growth.
-              </p>
-              <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
-                GROWTH PROBABILITY
-              </h2>
-              <p>
-                <strong>Estimated Growth Risk:</strong> 18% over the next 6
-                months
-              </p>
-              <p
-                className="mt-2 text-[1.2rem] w-[55rem] leading-6"
-                style={{ fontFamily: "Noto Sans" }}
-              >
-                AI-based analysis suggests a low-to-moderate risk of tumor
-                expansion. Regular imaging and clinical evaluations are
-                recommended to track any changes.
-              </p>
-              <h2 className="text-[1.8rem] text-cyan-400 mt-8 mb-2">
-                RECOMMENDATIONS
-              </h2>
-              <ul
-                className="list-disc pl-6 mt-2 text-[1.2rem] w-[55rem] leading-6"
-                style={{ fontFamily: "Noto Sans" }}
-              >
-                <li>
-                  Consider a follow-up MRI in 6–12 months to monitor potential
-                  changes.
-                </li>
-                <li>
-                  If experiencing headaches, vision issues, or cognitive
-                  symptoms, consult a neurologist.
-                </li>
-                <li>
-                  Treatment often involves regular monitoring through MRI scans,
-                  with intervention only if the tumor grows or causes symptoms.
-                </li>
-              </ul>
-            </div>
-          </div>
+          )
         ) : (
           // UPLOAD SCREEN
           <div

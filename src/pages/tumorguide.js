@@ -189,49 +189,49 @@ const treatment = [
     name: "ABLATIVE THERAPY",
     image: "images/treatmentIcons/treatment2.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "This treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "CHEMOTHERAPY",
     image: "images/treatmentIcons/treatment3.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "A classic and versatile cancer treatment. Chemotherapy uses powerful drugs to shrink tumors before surgery or eliminate lingering abnormal cells after surgery. While effective, it may also impact healthy cells.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "IMMUNOTHERAPY",
     image: "images/treatmentIcons/treatment4.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "This innovative treatment boosts your body’s immune system, teaching it to recognize and fight cancer cells. Though not suitable for all types, it offers hope for certain cancers by using your own defenses.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "RADIATION THERAPY",
     image: "images/treatmentIcons/treatment5.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "A powerful tool in cancer treatment, this therapy uses high-energy X-rays or other radiation types to target and destroy abnormal cells. It’s often used to shrink tumors or eliminate remaining cancer cells after surgery.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "EMBOLIZATION",
     image: "images/treatmentIcons/treatment6.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "A minimally invasive procedure that cuts off the blood supply to the tumor. By blocking the vessels that provide nourishment, this method effectively starves the tumor and slows its growth.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "HORMONE THERAPY",
     image: "images/treatmentIcons/treatment7.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "This approach targets cancers fueled by hormones like estrogen or testosterone. Hormone therapy works by blocking or lowering the levels of these hormones, effectively slowing tumor growth.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "TARGETED THERAPY ",
     image: "images/treatmentIcons/treatment8.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "Designed to specifically target cancer cells, this therapy slows or stops their growth. It works by disrupting the molecular changes that enable cancer cells to thrive while sparing healthy cells.",
   },
   {
-    name: "ABLATIVE THERAPY",
+    name: "ABLATION THERAPY",
     image: "images/treatmentIcons/treatment9.png",
     description:
-      "his treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
+      "This treatment relies on extreme temperatures to destroy abnormal cells. Substances like heat, cold, or radiofrequency energy are applied directly to the tumor, targeting it precisely while minimizing damage to surrounding tissue.",
   },
 ];
 
@@ -264,7 +264,14 @@ const HomePage = () => {
               medical insights.
             </p>
 
-            <button className="mt-6 w-[35%] p-4 text-3xl border border-cyan-500/100 rounded-[25px] shadow-lg transition hover:bg-cyan-500/100">
+            <button
+              className="mt-6 w-[35%] p-4 text-3xl border border-cyan-500/100 rounded-[25px] shadow-lg transition hover:bg-cyan-500/100"
+              onClick={() =>
+                document
+                  .getElementById("types")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
               START EXPLORING
             </button>
           </div>
@@ -294,13 +301,13 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-row-reverse items-center gap-20">
+        <div className="flex flex-row-reverse items-center gap-40">
           <div>
             <div className="relative mt-10">
               <img
                 src="images/tumorGuide/brain.png"
                 alt="Brain"
-                className="w-2/3 relative"
+                className="w-[34rem] relative"
               />
 
               {/* Display all lobe images by default */}
@@ -408,13 +415,13 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-20">
+        <div className="flex flex-row items-center gap-40">
           <div>
             <div className="relative mt-10">
               <img
                 src="images/tumorGuide/brain.png"
                 alt="Brain"
-                className="w-2/3 relative"
+                className="w-[34rem] relative"
               />
 
               {/* Display all lobe images by default */}
@@ -501,7 +508,10 @@ const HomePage = () => {
             </div>
           )}
         </div>
-        <div className="ml-[25vh] mt-[15vh]">
+        <div
+          className="justify-items-center
+ mt-[15vh] mb-[10vh]"
+        >
           <h2 className="text-[3.5rem] font-bold">
             When should I call my healthcare provider?
           </h2>
@@ -510,7 +520,7 @@ const HomePage = () => {
             changing lump anywhere on your body. You should also contact them if
             you experience:
           </p>
-          <ul className="mt-4 ml-10 text-[1.5rem] list-disc list-inside">
+          <ul className="mt-4 text-[1.5rem] list-disc list-inside">
             <li>Extreme fatigue.</li>
             <li>Severe pain that interferes with sleep or daily activities.</li>
             <li>Unexplained weight loss.</li>
@@ -524,7 +534,7 @@ const HomePage = () => {
         style={{ fontFamily: "'Noto Sans', sans-serif" }}
       >
         <img src=" images/design-1.png" />
-        <h2 className="text-[4rem] text-bold absolute">
+        <h2 className="text-[4rem] font-extrabold absolute transform translate-x-[33vw] -translate-y-[22vh]">
           How are tumors treated?
         </h2>
         {treatment.map((item, index) => (
@@ -533,15 +543,15 @@ const HomePage = () => {
               index % 6 < 3
                 ? "flex-row pl-[10vw]"
                 : "flex-row-reverse pr-[10vw]"
-            } items-center gap-10`}
+            } items-center gap-10 mt-10`}
           >
             <img
               src={item.image}
               alt={item.title}
-              className="w-[20vh] h-[20vh] mb-10"
+              className="w-[25vh] h-[25vh]"
             />
             <div className="flex flex-col">
-              <h2 className="text-[1.7rem] font-bold">{item.name}</h2>
+              <h2 className="text-[1.8rem] font-extrabold mb-1">{item.name}</h2>
               <p className="text-[1.3rem] w-[50rem]">{item.description}</p>
             </div>
           </div>
