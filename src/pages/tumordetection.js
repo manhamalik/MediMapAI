@@ -136,7 +136,7 @@ function TumorDetection() {
             Instant Tumor Detection.
             <br />
             <span className="text-cyan-500/100">AI-Powered</span>
-            <span className="text-[#F5CA90]">Precision.</span>
+            <span className="text-[#F5CA90]"> Precision.</span>
           </h1>
           <h2
             className="w-3/5 mb-6 text-2xl md:text-3xl"
@@ -149,7 +149,7 @@ function TumorDetection() {
             className="mt-4 text-3xl border border-[#5EDEF4] font-bold bg-black w-[21rem] h-[5rem] rounded-[24px] shadow-lg shadow-cyan-500/50 hover:bg-cyan-500/100 transition-all duration-300"
             onClick={() => scrollElement("run-analysis")}
           >
-            START AI DETECITON
+            START AI DETECTION
           </button>
         </div>
 
