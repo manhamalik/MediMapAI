@@ -539,10 +539,9 @@ const HomePage = () => {
         </h2>
         {treatment.map((item, index) => (
           <div
+            key={item.name || index}
             className={`flex ${
-              index % 6 < 3
-                ? "flex-row pl-[10vw]"
-                : "flex-row-reverse pr-[10vw]"
+              index % 6 < 3 ? "flex-row pl-[10vw]" : "flex-row-reverse pr-[10vw]"
             } items-center gap-10 mt-10`}
           >
             <img
