@@ -1,16 +1,20 @@
 import React, { lazy, Suspense } from "react";
 import Head from "next/head";
-import NavBar from "@/components/NavBar";
 import ScrollArrow from "@/components/ScrollArrow";
-import Dropdown from "@/components/Dropdown";
-import { motion } from "framer-motion";
+import HoverSection from "@/components/HoverSection";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
-const TrackerSection = lazy(() => import("@/components/TrackerSection"));
 const UseCaseSection = lazy(() => import("@/components/UseCaseSection"));
-const TumorDetectionSection = lazy(() => import("@/components/TumorDetectionSection"));
-const TumorGuideSection = lazy(() => import("@/components/TumorGuideSection"));
 
 export default function Home() {
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <Suspense>
       <div className="relative">
@@ -25,13 +29,12 @@ export default function Home() {
             href="https://fonts.googleapis.com/css2?family=Tilt+Warp:wght@400;700&display=swap"
             rel="stylesheet"
           />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap"/>
         </Head>
 
-        {/* ==================== HERO SECTION ==================== */}
+        {/* hero section */}
         <section id="hero" className="relative w-full h-screen">
           <div className="absolute inset-0 bg-[#010006]"></div>
-
-          {/* Background Image on Bottom Half */}
           <div
             className="absolute bottom-0 w-full h-[34vw]"
             style={{
@@ -41,11 +44,7 @@ export default function Home() {
               backgroundSize: "100vw",
             }}
           ></div>
-
-          {/* Hero Content */}
           <div className="relative z-10 flex flex-col md:flex-row justify-center items-center h-full gap-x-[7vw] px-4">
-
-            {/* Left Text Content */}
             <div
               className="flex flex-col max-w-4xl text-white p-8"
               style={{ fontFamily: "Tilt Warp, sans-serif" }}
@@ -57,7 +56,6 @@ export default function Home() {
                   with AI
                 </span>
               </h1>
-
               <ul
                 className="ml-4 mt-6 mb-6 text-[1.5rem] leading-7"
                 style={{ listStyleType: "none" }}
@@ -75,9 +73,8 @@ export default function Home() {
                   Compliant with HL7 FHIR standards
                 </li>
               </ul>
-
-              {/* Button */}
               <button
+                onClick={() => scrollToSection("second")}
                 className="mt-3 w-[50%] p-3 pl-10 pr-10 text-2xl border-2 border-[#5EDEF4] rounded-[25px] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
                 style={{
                   fontFamily: "Tilt Warp, sans-serif",
@@ -87,8 +84,6 @@ export default function Home() {
                 GET STARTED
               </button>
             </div>
-
-            {/* Right Image (Brain) */}
             <div className="relative z-10 flex items-center justify-center md:-mt-20 md:ml-[-2rem]">
               <img
                 src="images/brain-right.png"
@@ -97,46 +92,151 @@ export default function Home() {
               />
             </div>
           </div>
-
-          {/* Scroll Arrow at Bottom of Hero */}
           <div className="absolute bottom-8 w-full flex justify-center items-center z-10">
             <ScrollArrow to="second" />
           </div>
         </section>
 
-        {/* ==================== SECOND SECTION ==================== */}
+        {/* second section */}
         <section
           id="second"
-          className="relative w-full h-screen bg-cover bg-center bg-black"
-          style={{
-            backgroundImage: "url('/images/second-section.png')",
-            backgroundSize: "100vw",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
+          className="relative w-full min-h-[50vw] bg-black py-[10rem]"
         >
+          <div className="container mx-auto px-4 h-full flex items-center">
+            <div className="flex flex-wrap justify-center items-center gap-8 w-full">
+              {/* First Box */}
+              <div className="relative bg-[#000000] rounded-[1.5vw] p-8 pt-5 pb-6 text-center w-full md:w-[29rem] shadow-lg border-white border-[0.104vw]">
+                <div className="absolute -top-[4.3rem] left-1/2 transform -translate-x-1/2">
+                  <img src="images/glow.png" alt="glow" className="w-36 h-36" />
+                </div>
+                <img
+                  src="images/visual1.png"
+                  alt="Track Symptoms"
+                  className="mx-auto mb-4 w-[12vw] h-[12vw]"
+                />
+                <h3
+                  className="text-[2rem] font-medium text-white mb-1"
+                  style={{ fontFamily: "Tilt Warp, sans-serif" }}
+                >
+                  TRACK SYMPTOMS
+                </h3>
+                <p
+                  className="text-[1.4rem] text-white mb-2 font-medium"
+                  style={{ fontFamily: "Tilt Warp, sans-serif", lineHeight: "1.25" }}
+                >
+                  Track your symptoms over time to detect patterns early. Lay your
+                  health data and generate reports to share with your doctor.
+                </p>
+                <a href="/tracker">
+                  <button
+                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.5rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                    style={{
+                      fontFamily: "Tilt Warp, sans-serif",
+                      boxShadow: "0px 0px 5px 0px white",
+                    }}
+                  >
+                    START TRACKING
+                  </button>
+                </a>
+              </div>
+
+              {/* Second Box */}
+              <div className="relative bg-[#000000] rounded-[1.5vw] p-8 pt-5 pb-6 text-center w-full md:w-[29rem] shadow-lg border-white border-[0.104vw]">
+                <div className="absolute -top-[4.3rem] left-1/2 transform -translate-x-1/2">
+                  <img src="images/glow.png" alt="glow" className="w-36 h-36" />
+                </div>
+                <img
+                  src="images/visual2.png"
+                  alt="Detect Tumors"
+                  className="mx-auto mb-0 w-[14.5vw] h-[13.5vw]"
+                />
+                <h3
+                  className="text-[2rem] font-medium text-white mb-1"
+                  style={{ fontFamily: "Tilt Warp, sans-serif" }}
+                >
+                  DETECT TUMORS
+                </h3>
+                <p
+                  className="text-[1.4rem] text-white mb-[1.8rem] font-medium"
+                  style={{ fontFamily: "Tilt Warp, sans-serif", lineHeight: "1.25" }}
+                >
+                  Upload a brain scan and get instant AI-driven insights on tumor
+                  presence, size, and type.
+                </p>
+                <a href="/tumordetection">
+                  <button
+                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.5rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                    style={{
+                      fontFamily: "Tilt Warp, sans-serif",
+                      boxShadow: "0px 0px 5px 0px white",
+                    }}
+                  >
+                    TRY DETECTION
+                  </button>
+                </a>
+              </div>
+
+              {/* Third Box */}
+              <div className="relative bg-[#000000] rounded-[1.5vw] p-8 pt-5 pb-6 text-center w-full md:w-[29rem] shadow-lg border-white border-[0.104vw]">
+                <div className="absolute -top-[4.3rem] left-1/2 transform -translate-x-1/2">
+                  <img src="images/glow.png" alt="glow" className="w-36 h-36" />
+                </div>
+                <img
+                  src="images/visual3.png"
+                  alt="Tumor Guide"
+                  className="mx-auto mb-2 w-[12vw] h-[13vw]"
+                />
+                <h3
+                  className="text-[2rem] font-medium text-white mb-1"
+                  style={{ fontFamily: "Tilt Warp, sans-serif" }}
+                >
+                  TUMOR GUIDE
+                </h3>
+                <p
+                  className="text-[1.4rem] text-white mb-[1.7rem] font-medium"
+                  style={{ fontFamily: "Tilt Warp, sans-serif", lineHeight: "1.25" }}
+                >
+                  Explore causes, symptoms, and treatments with expert-reviewed
+                  medical resources.
+                </p>
+                <a href="/tumorguide">
+                  <button
+                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.5rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                    style={{
+                      fontFamily: "Tilt Warp, sans-serif",
+                      boxShadow: "0px 0px 5px 0px white",
+                    }}
+                  >
+                    LEARN MORE
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
           <div className="absolute bottom-8 w-full flex justify-center items-center">
             <ScrollArrow to="third" />
           </div>
         </section>
 
-        {/* ==================== THIRD SECTION ==================== */}
-        <section
-          id="third"
-          className="relative w-full h-screen bg-cover bg-center bg-black"
-          style={{
-            backgroundImage: "url('/images/third-section.png')",
-            backgroundSize: "70vw",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute bottom-8 w-full flex justify-center items-center">
-            <ScrollArrow to="fourth" />
-          </div>
-        </section>
+        {/* third section */}
+        <HoverSection buttonText="TRY TRACKER" href="/tracker">
+          <section
+            id="third"
+            className="relative w-full h-screen bg-cover bg-center bg-black"
+            style={{
+              backgroundImage: "url('/images/third-section.png')",
+              backgroundSize: "70vw",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="absolute bottom-8 w-full flex justify-center items-center">
+              <ScrollArrow to="fourth" />
+            </div>
+          </section>
+        </HoverSection>
 
-        {/* ==================== FOURTH SECTION ==================== */}
+        {/* fourth section */}
         <section
           id="fourth"
           className="relative w-full min-h-screen bg-cover bg-center bg-black"
@@ -152,40 +252,74 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ==================== FIFTH SECTION ==================== */}
-        <section
-          id="fifth"
-          className="relative w-full h-screen bg-cover bg-center bg-black"
-          style={{
-            backgroundImage: "url('/images/fifth-section.png')",
-            backgroundSize: "85vw",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute bottom-8 w-full flex justify-center items-center">
-            <ScrollArrow to="sixth" />
-          </div>
-        </section>
+        {/* fifth section */}
+        <HoverSection buttonText="TRY DETECTION" href="/tumordetection">
+          <section
+            id="fifth"
+            className="relative w-full h-screen bg-cover bg-center bg-black"
+            style={{
+              backgroundImage: "url('/images/fifth-section.png')",
+              backgroundSize: "85vw",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="absolute bottom-8 w-full flex justify-center items-center">
+              <ScrollArrow to="sixth" />
+            </div>
+          </section>
+        </HoverSection>
 
-        {/* ==================== SIXTH SECTION ==================== */}
+        {/* sixth section */}
         <section
           id="sixth"
-          className="relative w-full h-screen bg-cover bg-center bg-black"
-          style={{
-            backgroundImage: "url('/images/sixth-section.png')",
-            backgroundSize: "85vw",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
+          className="relative w-full min-h-screen bg-black flex items-center justify-center px-4 py-16"
         >
-        </section>
 
-        {/* Other lazy-loaded sections */}
-        {/* <TrackerSection />
-        <UseCaseSection />
-        <TumorDetectionSection />
-        <TumorGuideSection /> */}
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto w-full">
+            {/* text column */}
+            <div className="md:w-[41rem] text-white text-center md:text-left flex flex-col items-center md:items-start">
+              <h1
+                className="text-[5.5rem] mb-2 pl-2 "
+                style={{ fontFamily: "Tilt Warp, sans-serif" }}
+              >
+                Tumor Guide
+              </h1>
+              <ul
+                className="space-y-2 mb-6 list-disc pl-7 text-[1.65rem]"
+                style={{ fontFamily: "Noto Sans, sans-serif" }}
+              >
+                <li>
+                  <strong>Types & Causes:</strong> Understand different brain tumor
+                  types and what causes them.
+                </li>
+                <li>
+                  <strong>Symptoms:</strong> Learn key warning signs, from headaches to
+                  vision changes.
+                </li>
+                <li>
+                  <strong>Treatments:</strong> Explore available treatment options,
+                  including medications, surgery, and more.
+                </li>
+              </ul>
+
+              <a href="/tumorguide">
+                <button
+                  className="bg-[#7BC9D6] hover:bg-black border-[#7BC9D6] border-2 hover:bg-black hover:text-white text-black px-12 py-4 rounded-[1.5rem] flex items-center gap-10 text-[2rem]"
+                  style={{ fontFamily: "Tilt Warp, sans-serif", boxShadow: "0px 0px 3px 0px white" }}
+                >
+                  EXPLORE THE GUIDE{" "}
+                  <FontAwesomeIcon icon={faCaretRight} className="text-[2.25rem]" />
+                </button>
+              </a>
+            </div>
+
+            {/* image column */}
+            <div className="md:w-1/2 mt-10 md:mt-0 pl-9 flex justify-center">
+              <img src="/images/tgb.png" alt="Tumor Guide Brain" className="w-[34rem]" />
+            </div>
+          </div>
+        </section>
       </div>
     </Suspense>
   );
