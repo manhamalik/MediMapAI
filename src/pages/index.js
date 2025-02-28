@@ -1,5 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import ScrollArrow from "@/components/ScrollArrow";
 import HoverSection from "@/components/HoverSection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +18,7 @@ export default function Home() {
   };
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="relative">
         <Head>
           <title>MediMapAI</title>
@@ -29,7 +31,10 @@ export default function Home() {
             href="https://fonts.googleapis.com/css2?family=Tilt+Warp:wght@400;700&display=swap"
             rel="stylesheet"
           />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap"/>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap"
+          />
         </Head>
 
         {/* hero section */}
@@ -61,33 +66,53 @@ export default function Home() {
                 style={{ listStyleType: "none" }}
               >
                 <li className="flex items-center mb-2">
-                  <img src="images/point.png" alt="point" className="w-6 h-6 mr-3" />
+                  <Image
+                    src="/images/point.png"
+                    alt="point"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 mr-3"
+                  />
                   99%+ AI Model Accuracy
                 </li>
                 <li className="flex items-center mb-2">
-                  <img src="images/point.png" alt="point" className="w-6 h-6 mr-3" />
+                  <Image
+                    src="/images/point.png"
+                    alt="point"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 mr-3"
+                  />
                   Trained on 100,000+ medical images
                 </li>
                 <li className="flex items-center mb-2">
-                  <img src="images/point.png" alt="point" className="w-6 h-6 mr-3" />
+                  <Image
+                    src="/images/point.png"
+                    alt="point"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 mr-3"
+                  />
                   Compliant with HL7 FHIR standards
                 </li>
               </ul>
               <button
                 onClick={() => scrollToSection("second")}
-                className="mt-3 w-[50%] p-3 pl-10 pr-10 text-2xl border-2 border-[#5EDEF4] rounded-[25px] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                className="mt-3 w-[50%] p-3 pl-10 pr-10 text-2xl border-2 border-[#5EDEF4] rounded-[22px] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
                 style={{
                   fontFamily: "Tilt Warp, sans-serif",
-                  boxShadow: "0px 0px 5px 0px white",
+                  boxShadow: "0px 0px 5px 0px #5EDEF4",
                 }}
               >
                 GET STARTED
               </button>
             </div>
             <div className="relative z-10 flex items-center justify-center md:-mt-20 md:ml-[-2rem]">
-              <img
-                src="images/brain-right.png"
+              <Image
+                src="/images/brain-right.png"
                 alt="AI Brain"
+                width={800}
+                height={600}
                 className="w-[35vw] h-auto"
               />
             </div>
@@ -107,11 +132,19 @@ export default function Home() {
               {/* First Box */}
               <div className="relative bg-[#000000] rounded-[1.5vw] p-8 pt-5 pb-6 text-center w-full md:w-[29rem] shadow-lg border-white border-[0.104vw]">
                 <div className="absolute -top-[4.3rem] left-1/2 transform -translate-x-1/2">
-                  <img src="images/glow.png" alt="glow" className="w-36 h-36" />
+                  <Image
+                    src="/images/glow.png"
+                    alt="glow"
+                    width={144}
+                    height={144}
+                    className="w-36 h-36"
+                  />
                 </div>
-                <img
-                  src="images/visual1.png"
+                <Image
+                  src="/images/visual1.png"
                   alt="Track Symptoms"
+                  width={200}
+                  height={200}
                   className="mx-auto mb-4 w-[12vw] h-[12vw]"
                 />
                 <h3
@@ -127,27 +160,35 @@ export default function Home() {
                   Track your symptoms over time to detect patterns early. Lay your
                   health data and generate reports to share with your doctor.
                 </p>
-                <a href="/tracker">
+                <Link href="/tracker">
                   <button
-                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.5rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.25rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
                     style={{
                       fontFamily: "Tilt Warp, sans-serif",
-                      boxShadow: "0px 0px 5px 0px white",
+                      boxShadow: "0px 0px 5px 0px #5EDEF4",
                     }}
                   >
                     START TRACKING
                   </button>
-                </a>
+                </Link>
               </div>
 
               {/* Second Box */}
               <div className="relative bg-[#000000] rounded-[1.5vw] p-8 pt-5 pb-6 text-center w-full md:w-[29rem] shadow-lg border-white border-[0.104vw]">
                 <div className="absolute -top-[4.3rem] left-1/2 transform -translate-x-1/2">
-                  <img src="images/glow.png" alt="glow" className="w-36 h-36" />
+                  <Image
+                    src="/images/glow.png"
+                    alt="glow"
+                    width={144}
+                    height={144}
+                    className="w-36 h-36"
+                  />
                 </div>
-                <img
-                  src="images/visual2.png"
+                <Image
+                  src="/images/visual2.png"
                   alt="Detect Tumors"
+                  width={300}
+                  height={280}
                   className="mx-auto mb-0 w-[14.5vw] h-[13.5vw]"
                 />
                 <h3
@@ -163,27 +204,35 @@ export default function Home() {
                   Upload a brain scan and get instant AI-driven insights on tumor
                   presence, size, and type.
                 </p>
-                <a href="/tumordetection">
+                <Link href="/tumordetection">
                   <button
-                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.5rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.25rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
                     style={{
                       fontFamily: "Tilt Warp, sans-serif",
-                      boxShadow: "0px 0px 5px 0px white",
+                      boxShadow: "0px 0px 5px 0px #5EDEF4",
                     }}
                   >
                     TRY DETECTION
                   </button>
-                </a>
+                </Link>
               </div>
 
               {/* Third Box */}
               <div className="relative bg-[#000000] rounded-[1.5vw] p-8 pt-5 pb-6 text-center w-full md:w-[29rem] shadow-lg border-white border-[0.104vw]">
                 <div className="absolute -top-[4.3rem] left-1/2 transform -translate-x-1/2">
-                  <img src="images/glow.png" alt="glow" className="w-36 h-36" />
+                  <Image
+                    src="/images/glow.png"
+                    alt="glow"
+                    width={144}
+                    height={144}
+                    className="w-36 h-36"
+                  />
                 </div>
-                <img
-                  src="images/visual3.png"
+                <Image
+                  src="/images/visual3.png"
                   alt="Tumor Guide"
+                  width={200}
+                  height={217}
                   className="mx-auto mb-2 w-[12vw] h-[13vw]"
                 />
                 <h3
@@ -199,17 +248,17 @@ export default function Home() {
                   Explore causes, symptoms, and treatments with expert-reviewed
                   medical resources.
                 </p>
-                <a href="/tumorguide">
+                <Link href="/tumorguide">
                   <button
-                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.5rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
+                    className="mt-3 w-[75%] p-3 pl-10 pr-10 text-2xl text-white border-2 border-[#5EDEF4] rounded-[1.25rem] shadow-[0_0_10px_white] transition hover:bg-cyan-500/100"
                     style={{
                       fontFamily: "Tilt Warp, sans-serif",
-                      boxShadow: "0px 0px 5px 0px white",
+                      boxShadow: "0px 0px 5px 0px #5EDEF4",
                     }}
                   >
                     LEARN MORE
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -275,7 +324,6 @@ export default function Home() {
           id="sixth"
           className="relative w-full min-h-screen bg-black flex items-center justify-center px-4 py-16"
         >
-
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto w-full">
             {/* text column */}
             <div className="md:w-[41rem] text-white text-center md:text-left flex flex-col items-center md:items-start">
@@ -302,21 +350,28 @@ export default function Home() {
                   including medications, surgery, and more.
                 </li>
               </ul>
-
-              <a href="/tumorguide">
+              <Link href="/tumorguide">
                 <button
-                  className="bg-[#7BC9D6] hover:bg-black border-[#7BC9D6] border-2 hover:bg-black hover:text-white text-black px-12 py-4 rounded-[1.5rem] flex items-center gap-10 text-[2rem]"
-                  style={{ fontFamily: "Tilt Warp, sans-serif", boxShadow: "0px 0px 3px 0px white" }}
+                  className="bg-[#7BC9D6] hover:bg-black border-[#7BC9D6] border-2 hover:text-white text-black px-12 py-4 rounded-[1.5rem] flex items-center gap-10 text-[2rem]"
+                  style={{
+                    fontFamily: "Tilt Warp, sans-serif",
+                    boxShadow: "0px 0px 5px 0px #7BC9D6",
+                  }}
                 >
                   EXPLORE THE GUIDE{" "}
                   <FontAwesomeIcon icon={faCaretRight} className="text-[2.25rem]" />
                 </button>
-              </a>
+              </Link>
             </div>
-
             {/* image column */}
             <div className="md:w-1/2 mt-10 md:mt-0 pl-9 flex justify-center">
-              <img src="/images/tgb.png" alt="Tumor Guide Brain" className="w-[34rem]" />
+              <Image
+                src="/images/tgb.png"
+                alt="Tumor Guide Brain"
+                width={544}
+                height={400}
+                className="w-[34rem]"
+              />
             </div>
           </div>
         </section>

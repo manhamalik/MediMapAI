@@ -265,7 +265,7 @@ const HomePage = () => {
             </p>
 
             <button
-              className="mt-6 w-[35%] p-4 text-3xl border border-cyan-500/100 rounded-[25px] shadow-lg transition hover:bg-cyan-500/100"
+              className="mt-6 w-[35%] p-4 text-3xl border-2 border-cyan-500/100 rounded-[25px] shadow-lg shadow-cyan-500/50 transition hover:bg-cyan-500/100"
               onClick={() =>
                 document
                   .getElementById("types")

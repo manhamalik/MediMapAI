@@ -146,7 +146,7 @@ function TumorDetection() {
             measure size, and predict growth.
           </h2>
           <button
-            className="mt-4 text-3xl border border-[#5EDEF4] font-bold bg-black w-[21rem] h-[5rem] rounded-[24px] shadow-lg shadow-cyan-500/50 hover:bg-cyan-500/100 transition-all duration-300"
+            className="mt-4 text-3xl border-2 border-[#5EDEF4] bg-black w-[21rem] h-[5rem] rounded-[24px] shadow-lg shadow-cyan-500/50 hover:bg-cyan-500/100 transition-all duration-300"
             onClick={() => scrollElement("run-analysis")}
           >
             START AI DETECTION
