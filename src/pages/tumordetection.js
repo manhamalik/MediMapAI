@@ -19,7 +19,7 @@ const preSavedResults = {
     volume: "10.2",
     growthRisk: "12%",
   },
-  "img/test_image2.png": {
+  "images/No Tumor (4).png": {
     tumorType: "No Tumor",
   },
 };
@@ -285,7 +285,7 @@ function TumorDetection() {
                 <label htmlFor="fileUpload" className="cursor-pointer block">
                   <FontAwesomeIcon
                     icon={faCloudArrowUp}
-                    className="sm:w-20 lg:w-40 h-40"
+                    className="md:w-40 md:h-40 w-20 h-20"
                   />
                 </label>
                 <label className="text-[2.4rem] font-semibold">
@@ -310,7 +310,7 @@ function TumorDetection() {
                       key={imagePath}
                       src={imagePath}
                       alt="Sample MRI"
-                      className="lg:w-60 lg:h-56 w-28 h-34 rounded-lg cursor-pointer border border-gray-500 hover:opacity-80"
+                      className="lg:w-[15rem] lg:h-[12rem] rounded-lg cursor-pointer border border-gray-500 hover:opacity-80"
                       onClick={() => handlePreSavedAnalysis(imagePath)}
                     />
                   ))}
