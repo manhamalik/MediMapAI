@@ -285,7 +285,7 @@ function TumorDetection() {
                 <label htmlFor="fileUpload" className="cursor-pointer block">
                   <FontAwesomeIcon
                     icon={faCloudArrowUp}
-                    className="md:w-40 md:h-40 w-20 h-20"
+                    style={{ width: "10rem", height: "10rem" }}
                   />
                 </label>
                 <label className="text-[2.4rem] font-semibold">
