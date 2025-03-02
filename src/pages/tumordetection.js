@@ -288,7 +288,10 @@ function TumorDetection() {
                     style={{ width: "10rem", height: "10rem" }}
                   />
                 </label>
-                <label className="text-[2.4rem] font-semibold">
+                <label
+                  htmlFor="fileUpload"
+                  className="text-[2.4rem] font-semibold cursor-pointer"
+                >
                   Select files to upload
                 </label>
                 <input
