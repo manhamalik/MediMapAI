@@ -249,7 +249,7 @@ const HomePage = () => {
             fontFamily: "tilt warp",
           }}
         >
-          <div className="flex flex-col max-w-4xl text-white text-start mb-48">
+          <div className="flex flex-col text-white max-w-4xl text-start mb-40 p-8 ">
             <h1 className="text-[4rem] leading-[4.5rem] ">
               Understand Brain Tumors & <br />
               <span className="text-cyan-500/100">
@@ -275,7 +275,7 @@ const HomePage = () => {
               START EXPLORING
             </button>
           </div>
-          <div className="flex items-center justify-center w-2/5 mb-20">
+          <div className="flex items-center justify-center mb-20">
             <img
               src="images/TumorGuideHero.png"
               alt="Braiabsolute right-5 md:right-15 n Tumor Visualization"
@@ -541,7 +541,9 @@ const HomePage = () => {
           <div
             key={item.name || index}
             className={`flex ${
-              index % 6 < 3 ? "flex-row pl-[10vw]" : "flex-row-reverse pr-[10vw]"
+              index % 6 < 3
+                ? "flex-row pl-[10vw]"
+                : "flex-row-reverse pr-[10vw]"
             } items-center gap-10 mt-10`}
           >
             <img
