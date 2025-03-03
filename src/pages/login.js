@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "@/firebase";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useRouter } from "next/router";
@@ -12,10 +12,12 @@ export default function Login() {
   const { user } = useAuth();
   const router = useRouter();
 
-  if (user) {
-    router.push("/");
-    return null;
-  }
+  // Use useEffect for redirection so that hooks are always called in the same order
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

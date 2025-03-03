@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth, db } from "@/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -21,10 +21,12 @@ export default function Signup() {
   const { user } = useAuth();
   const router = useRouter();
 
-  if (user) {
-    router.push("/");
-    return null;
-  }
+  // Use useEffect for redirection so that hooks are always called in the same order
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   // Handle Email Sign Up
   const handleEmailSignup = async (e) => {
@@ -252,7 +254,7 @@ export default function Signup() {
 
           {/* Logo in the bottom-right corner */}
           <img
-            src="images/log-c.png" // Update if your path differs
+            src="images/log-c.png"
             alt="Your Logo"
             className="absolute bottom-4 right-4 w-16 h-16 object-contain"
           />
