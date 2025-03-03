@@ -10,9 +10,10 @@ import "@/styles/globals.css";
 import { Noto_Sans_Multani } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import Chatbot from "@/components/Chatbot"; // Import your Chatbot component here
+import Chatbot from "@/components/Chatbot";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { AuthProvider } from "@/context/AuthContext"; // Import AuthProvider
 
 const notoSansMultani = Noto_Sans_Multani({
   subsets: ["latin"],
@@ -27,18 +28,18 @@ export default function App({ Component, pageProps }) {
   }, [router.isReady]);
 
   return (
-    <>
+    <AuthProvider>
       <style jsx global>{`
         html {
           font-family: ${notoSansMultani.style.fontFamily}, sans-serif;
         }
       `}</style>
       <NavBar />
-      <Chatbot /> {/* Render the Chatbot component */}
+      <Chatbot />
       <main>
         <Component {...pageProps} />
       </main>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }

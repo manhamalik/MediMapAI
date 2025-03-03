@@ -1,8 +1,26 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const NavBar = () => {
+  // Destructure the properties as they exist in your AuthContext
+  const { currentUser, userData, logout, loading } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Optional: show a quick loading state if needed
+  if (loading) {
+    return (
+      <nav className="bg-black text-white py-4 px-6 flex justify-between items-center">
+        <p>Loading...</p>
+      </nav>
+    );
+  }
+
+  // Use first & last name if available; otherwise fallback to currentUser.email
+  const displayName =
+    userData?.firstName && userData?.lastName
+      ? `${userData.firstName} ${userData.lastName}`
+      : currentUser?.email || "";
 
   return (
     <nav
@@ -36,16 +54,10 @@ const NavBar = () => {
                 stroke="currentColor"
                 className="w-4 h-4 ml-1"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </Link>
-
-          {/* Dropdown menu */}
           {isDropdownOpen && (
             <div className="absolute left-0 top-full bg-black text-white shadow-lg rounded-md z-[1100]">
               <Link href="/tumorguide#types">
@@ -70,12 +82,24 @@ const NavBar = () => {
         <Link href="/about">ABOUT</Link>
       </div>
 
-      {/* Login Button */}
-      <Link href="/login">
-        <div className="bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition duration-300 cursor-pointer">
-          LOGIN
+      {/* Authentication Section */}
+      {currentUser ? (
+        <div className="flex items-center space-x-4">
+          <span className="text-gray-300">Signed in as {displayName}</span>
+          <button
+            onClick={logout}
+            className="bg-[#5EDEF4] text-black font-bold px-4 py-2 rounded-[0.75rem] hover:bg-red-500 transition duration-300"
+          >
+            LOGOUT
+          </button>
         </div>
-      </Link>
+      ) : (
+        <Link href="/login">
+          <div className="bg-white text-black font-bold px-4 py-2 rounded-[0.75rem] hover:bg-gray-200 transition duration-300 cursor-pointer">
+            LOGIN
+          </div>
+        </Link>
+      )}
     </nav>
   );
 };
