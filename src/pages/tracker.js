@@ -53,7 +53,7 @@ const Tracker = () => {
   // Destructure currentUser, userData, and loading from AuthContext
   const { currentUser, userData, loading } = useAuth();
 
-  // All hooks are declared unconditionally at the top of the component.
+  // All hooks are declared unconditionally at the top
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [symptomData, setSymptomData] = useState([]);
@@ -69,11 +69,6 @@ const Tracker = () => {
   });
   const [chartData, setChartData] = useState(null);
   const [chartOptions, setChartOptions] = useState(null);
-
-  // If loading, render a loading message
-  if (loading) {
-    return <p>Loading user data...</p>;
-  }
 
   // Create displayName using first and last name if available, or fallback to email
   const displayName =
@@ -277,7 +272,6 @@ const Tracker = () => {
       if (s.nausea > 0) summaryCounts.nausea += 1;
     });
 
-    // Create jsPDF doc with black background
     const doc = new jsPDF("p", "mm", "a4");
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
@@ -296,12 +290,10 @@ const Tracker = () => {
       console.error("Error fetching logo:", err);
     }
 
-    // Title
     doc.setTextColor(4, 218, 230);
     doc.setFontSize(16);
     doc.text(reportTitle, pageWidth / 2, 20, { align: "center" });
 
-    // Date Range
     if (recentData.length > 0) {
       const startDate = new Date(recentData[0].dateString);
       const endDate = new Date(recentData[recentData.length - 1].dateString);
@@ -327,7 +319,6 @@ const Tracker = () => {
       );
     }
 
-    // Summaries
     doc.setTextColor(255, 255, 255);
     let y = 40;
     const xIndent = 15;
@@ -402,7 +393,6 @@ const Tracker = () => {
     });
     y += 5;
 
-    // Key Observations
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(4, 218, 230);
@@ -419,7 +409,6 @@ const Tracker = () => {
     doc.text("• Memory lapses noted on multiple days.", xIndent + 5, y);
     y += 10;
 
-    // Recommendation
     doc.setFont("helvetica", "bold");
     doc.setTextColor(4, 218, 230);
     doc.text("Recommendation:", xIndent, y);
@@ -434,7 +423,6 @@ const Tracker = () => {
     });
     y += 15;
 
-    // Next Steps
     doc.setFont("helvetica", "bold");
     doc.setTextColor(4, 218, 230);
     doc.text("Next Steps:", xIndent, y);
@@ -457,7 +445,6 @@ const Tracker = () => {
     });
     y += 10;
 
-    // Mixed chart data
     const displayChartLabels = sorted.map((item) => item.dateString);
     const displayChartValues = sorted.map((item) => item.totalSeverity);
     const mixedChartData = {
@@ -523,7 +510,6 @@ const Tracker = () => {
     }
   };
 
-  // Helper function to convert image URL to base64
   const getBase64FromUrl = async (url) => {
     const response = await fetch(url);
     const blob = await response.blob();
@@ -535,7 +521,6 @@ const Tracker = () => {
     });
   };
 
-  // Generate chart image from Chart.js data
   const generateChartImage = async (chartType, data, options) => {
     return new Promise((resolve, reject) => {
       const canvas = document.createElement("canvas");
@@ -565,7 +550,6 @@ const Tracker = () => {
         },
       });
 
-      // Fallback if animation callback doesn't fire
       setTimeout(() => {
         try {
           const dataURL = canvas.toDataURL("image/png");
@@ -578,11 +562,17 @@ const Tracker = () => {
     });
   };
 
-  return (
+  return loading ? (
+    <p>Loading user data...</p>
+  ) : (
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap"
           rel="stylesheet"
@@ -618,7 +608,8 @@ const Tracker = () => {
           </h1>
 
           <p className="w-[32vw] mb-6 text-xl md:text-2xl lg:text-3xl">
-            Use the interactive calendar and AI-driven insights to monitor your health patterns over time.
+            Use the interactive calendar and AI-driven insights to monitor your
+            health patterns over time.
           </p>
 
           <button
@@ -670,7 +661,8 @@ const Tracker = () => {
               🎉
             </h2>
             <p className="text-white text-[1.5rem] mb-6 w-[35rem]">
-              Track your health effortlessly. Select a date to log your symptoms and monitor trends over time!
+              Track your health effortlessly. Select a date to log your symptoms
+              and monitor trends over time!
             </p>
 
             <div className="custom-calendar mb-8">
@@ -690,12 +682,29 @@ const Tracker = () => {
           </div>
 
           {/* RIGHT SIDEBAR */}
-          <div className="w-[26rem] bg-[#121212] rounded-lg p-4 text-white" style={{ marginLeft: "auto" }}>
-            <h2 style={{ fontFamily: "Tilt Warp, sans-serif" }} className="text-[1.75rem] mb-4 text-center">Health Insights</h2>
+          <div
+            className="w-[26rem] bg-[#121212] rounded-lg p-4 text-white"
+            style={{ marginLeft: "auto" }}
+          >
+            <h2
+              style={{ fontFamily: "Tilt Warp, sans-serif" }}
+              className="text-[1.75rem] mb-4 text-center"
+            >
+              Health Insights
+            </h2>
 
             <div className="mb-6">
-              <p style={{ fontFamily: "Inter, sans-serif" }} className="font-semibold text-[1.25rem] inline">
-                Tip: <span style={{ fontFamily: "Inter, sans-serif" }} className="font-normal">Stay hydrated! 💧</span>
+              <p
+                style={{ fontFamily: "Inter, sans-serif" }}
+                className="font-semibold text-[1.25rem] inline"
+              >
+                Tip:{" "}
+                <span
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                  className="font-normal"
+                >
+                  Stay hydrated! 💧
+                </span>
               </p>
               <p style={{ fontFamily: "Inter, sans-serif" }} className="text-[1.25rem]">
                 Fatigue and headaches can often be signs of dehydration.
@@ -703,8 +712,16 @@ const Tracker = () => {
             </div>
 
             <div className="mb-6">
-              <p style={{ fontFamily: "Inter, sans-serif" }} className="font-bold text-[1.25rem] mb-2">Recent Entries:</p>
-              <ul style={{ fontFamily: "Inter, sans-serif" }} className="list-disc text-[1.25rem] list-inside ml-5 space-y-1">
+              <p
+                style={{ fontFamily: "Inter, sans-serif" }}
+                className="font-bold text-[1.25rem] mb-2"
+              >
+                Recent Entries:
+              </p>
+              <ul
+                style={{ fontFamily: "Inter, sans-serif" }}
+                className="list-disc text-[1.25rem] list-inside ml-5 space-y-1"
+              >
                 <li>Headache (2 days ago)</li>
                 <li>Fatigue (Yesterday)</li>
                 <li>Nausea (Today)</li>
@@ -712,8 +729,16 @@ const Tracker = () => {
             </div>
 
             <div className="mb-6">
-              <p style={{ fontFamily: "Inter, sans-serif" }} className="font-bold text-[1.25rem] mb-2">Recurring Symptoms:</p>
-              <ul style={{ fontFamily: "Inter, sans-serif" }} className="list-disc list-inside ml-5 space-y-1 text-[1.25rem]">
+              <p
+                style={{ fontFamily: "Inter, sans-serif" }}
+                className="font-bold text-[1.25rem] mb-2"
+              >
+                Recurring Symptoms:
+              </p>
+              <ul
+                style={{ fontFamily: "Inter, sans-serif" }}
+                className="list-disc list-inside ml-5 space-y-1 text-[1.25rem]"
+              >
                 <li>Headache (5 times this month)</li>
                 <li>Fatigue (7 times this month)</li>
               </ul>
@@ -768,11 +793,15 @@ const Tracker = () => {
 
             {/* Cognitive & Mental Changes */}
             <div className="mb-3">
-              <label className="block font-medium">Cognitive & Mental Changes</label>
+              <label className="block font-medium">
+                Cognitive & Mental Changes
+              </label>
               <select
                 className="border rounded p-1 w-full"
                 value={symptoms.cognitive}
-                onChange={(e) => handleSymptomChange("cognitive", e.target.value)}
+                onChange={(e) =>
+                  handleSymptomChange("cognitive", e.target.value)
+                }
               >
                 <option value={0}>Clear Mind</option>
                 <option value={1}>Occasional Forgetfulness</option>
@@ -882,7 +911,6 @@ const Tracker = () => {
 
       {/* Custom Calendar Styles */}
       <style jsx global>{`
-        /* Use Inter font for the entire calendar */
         .custom-calendar .react-calendar {
           width: 50rem;
           height: 32rem;
@@ -893,42 +921,29 @@ const Tracker = () => {
           padding: 1rem;
           border-radius: 1rem;
         }
-
-        /* Navigation (month/year + arrows) in white, bold */
         .react-calendar__navigation button {
           color: #fff;
           font-weight: bold;
         }
-
-        /* The arrow SVG fill */
         .react-calendar__navigation button .react-calendar__navigation__arrow {
           fill: #fff;
         }
-
-        /* Weekday abbreviations in cyan, normal (not bold) */
         .react-calendar__month-view__weekdays__weekday abbr {
           text-decoration: none;
           color: #5edef4;
           font-weight: normal;
         }
-
-        /* All day numbers in white by default */
         .react-calendar__tile {
           color: #fff;
         }
-
-        /* Days from previous/next month in #707070 */
         .react-calendar__month-view__days__day--neighboringMonth {
           color: #707070;
         }
-
         .react-calendar__tile:hover {
           border-radius: 50%;
           background: #5edef4;
           color: #121418;
         }
-
-        /* Current day: smaller circle in #5edef4 */
         .react-calendar__tile--now {
           background: none;
         }
@@ -941,8 +956,6 @@ const Tracker = () => {
           color: #121418;
           text-align: center;
         }
-
-        /* Selected day: smaller circle in #2a2d30 */
         .react-calendar__tile--active {
           background: none;
         }
@@ -956,8 +969,6 @@ const Tracker = () => {
           color: #fff;
           text-align: center;
         }
-
-        /* Days that have symptoms: cyan underline */
         .symptom-day {
           border-bottom: 3px solid #5edef4;
         }
