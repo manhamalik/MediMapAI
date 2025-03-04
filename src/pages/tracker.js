@@ -53,23 +53,11 @@ const Tracker = () => {
   // Destructure currentUser, userData, and loading from AuthContext
   const { currentUser, userData, loading } = useAuth();
 
-  if (loading) {
-    return <p>Loading user data...</p>;
-  }
-
-  // Create displayName using first and last name if available, or fallback to email
-  const displayName =
-    userData?.firstName && userData?.lastName
-      ? `${userData.firstName} ${userData.lastName}`
-      : currentUser?.email || "";
-
-  // State variables
+  // All hooks are declared unconditionally at the top of the component.
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [symptomData, setSymptomData] = useState([]);
   const [daysLogged, setDaysLogged] = useState(0);
-
-  // Symptom states
   const [symptoms, setSymptoms] = useState({
     headache: 0,
     cognitive: 0,
@@ -79,10 +67,19 @@ const Tracker = () => {
     seizures: 0,
     nausea: 0,
   });
-
-  // Chart.js data & options
   const [chartData, setChartData] = useState(null);
   const [chartOptions, setChartOptions] = useState(null);
+
+  // If loading, render a loading message
+  if (loading) {
+    return <p>Loading user data...</p>;
+  }
+
+  // Create displayName using first and last name if available, or fallback to email
+  const displayName =
+    userData?.firstName && userData?.lastName
+      ? `${userData.firstName} ${userData.lastName}`
+      : currentUser?.email || "";
 
   // Fetch user's existing symptom data
   useEffect(() => {
@@ -771,15 +768,11 @@ const Tracker = () => {
 
             {/* Cognitive & Mental Changes */}
             <div className="mb-3">
-              <label className="block font-medium">
-                Cognitive & Mental Changes
-              </label>
+              <label className="block font-medium">Cognitive & Mental Changes</label>
               <select
                 className="border rounded p-1 w-full"
                 value={symptoms.cognitive}
-                onChange={(e) =>
-                  handleSymptomChange("cognitive", e.target.value)
-                }
+                onChange={(e) => handleSymptomChange("cognitive", e.target.value)}
               >
                 <option value={0}>Clear Mind</option>
                 <option value={1}>Occasional Forgetfulness</option>
@@ -839,15 +832,11 @@ const Tracker = () => {
 
             {/* Seizures & Muscle Movements */}
             <div className="mb-3">
-              <label className="block font-medium">
-                Seizures & Muscle Movements
-              </label>
+              <label className="block font-medium">Seizures & Muscle Movements</label>
               <select
                 className="border rounded p-1 w-full"
                 value={symptoms.seizures}
-                onChange={(e) =>
-                  handleSymptomChange("seizures", e.target.value)
-                }
+                onChange={(e) => handleSymptomChange("seizures", e.target.value)}
               >
                 <option value={0}>No Seizures or Twitching</option>
                 <option value={1}>Minor Twitching</option>
@@ -947,7 +936,6 @@ const Tracker = () => {
           display: inline-block;
           width: 3rem;
           height: 2.5rem;
-          // line-height: 1rem;
           border-radius: 50%;
           background: #5edef4;
           color: #121418;
