@@ -50,10 +50,7 @@ const scrollElement = (id) => {
 };
 
 const Tracker = () => {
-  // Destructure currentUser, userData, and loading from AuthContext
   const { currentUser, userData, loading } = useAuth();
-
-  // All hooks are declared unconditionally at the top
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [symptomData, setSymptomData] = useState([]);
@@ -69,14 +66,11 @@ const Tracker = () => {
   });
   const [chartData, setChartData] = useState(null);
   const [chartOptions, setChartOptions] = useState(null);
-
-  // Create displayName using first and last name if available, or fallback to email
   const displayName =
     userData?.firstName && userData?.lastName
       ? `${userData.firstName} ${userData.lastName}`
       : currentUser?.email || "";
 
-  // Fetch user's existing symptom data
   useEffect(() => {
     if (!currentUser) return;
     const fetchSymptomData = async () => {
@@ -110,7 +104,6 @@ const Tracker = () => {
     fetchSymptomData();
   }, [currentUser]);
 
-  // Build chart data whenever symptomData changes
   useEffect(() => {
     if (!symptomData.length) return;
     const data = {
@@ -154,18 +147,15 @@ const Tracker = () => {
     setChartOptions(options);
   }, [symptomData]);
 
-  // Handle date click
   const handleDateClick = (date) => {
     setSelectedDate(date);
     setIsModalOpen(true);
   };
 
-  // Update symptom state
   const handleSymptomChange = (symptom, severity) => {
     setSymptoms((prev) => ({ ...prev, [symptom]: Number(severity) }));
   };
 
-  // Submit symptoms
   const handleSubmitSymptoms = async () => {
     const allZero = Object.values(symptoms).every((val) => val === 0);
     if (allZero) {
@@ -207,7 +197,6 @@ const Tracker = () => {
         return existingDates.size;
       });
 
-      // Reset
       setIsModalOpen(false);
       setSymptoms({
         headache: 0,
@@ -224,7 +213,6 @@ const Tracker = () => {
     }
   };
 
-  // Generate PDF report with composite (mixed) chart
   const handleGenerateReport = async () => {
     if (daysLogged < 7) {
       alert(
@@ -250,8 +238,6 @@ const Tracker = () => {
       (a, b) => new Date(a.dateString) - new Date(b.dateString)
     );
     const recentData = sorted.slice(-rangeSize);
-
-    // Summaries
     const summaryCounts = {
       headache: 0,
       cognitive: 0,
@@ -281,7 +267,6 @@ const Tracker = () => {
     doc.rect(0, 0, pageWidth, pageHeight, "F");
     doc.setTextColor(255, 255, 255);
 
-    // Try to add a logo
     try {
       const logoUrl = "https://i.imgur.com/80ziW9i.png";
       const logoBase64 = await getBase64FromUrl(logoUrl);
@@ -606,12 +591,10 @@ const Tracker = () => {
             Spot Trends, <br />
             <span className="text-[#5EDEF4]">Take Control</span>
           </h1>
-
           <p className="w-[32vw] mb-6 text-xl md:text-2xl lg:text-3xl">
             Use the interactive calendar and AI-driven insights to monitor your
             health patterns over time.
           </p>
-
           <button
             style={{ fontFamily: "Tilt Warp, sans-serif" }}
             className="mt-4 text-xl md:text-3xl border-2 border-[#5EDEF4] bg-black w-[16rem] md:w-[19rem] h-[4.2rem] rounded-[24px] shadow-lg shadow-cyan-500/50 hover:bg-cyan-500/100 transition-all duration-300 flex items-center justify-center"
@@ -620,7 +603,6 @@ const Tracker = () => {
             START TRACKING
           </button>
         </div>
-
         {/* Right Image */}
         <img
           src="images/right.png"
@@ -628,22 +610,19 @@ const Tracker = () => {
           className="h-[46vw] mb-16"
         />
 
-        {/* Scroll Arrow at the Bottom */}
         <div className="absolute bottom-8 w-full flex justify-center items-center">
           <ScrollArrow to="second" />
         </div>
       </section>
 
-      {/* SECOND SECTION */}
+      {/* Second Section */}
       <section
         id="second"
         className="relative w-full min-h-screen bg-black bg-center bg-no-repeat"
-        style={{
-          backgroundSize: "75vw",
-        }}
+        style={{ backgroundSize: "75vw" }}
       >
         <div className="flex w-full min-h-screen py-10 px-0">
-          {/* LEFT COLUMN (Calendar & Greeting) */}
+          {/* Left Column (Calendar & Greeting) */}
           <div className="w-2/3 px-6 flex flex-col items-center text-center">
             <h2
               className="text-[3rem] text-white mb-2"
@@ -651,20 +630,15 @@ const Tracker = () => {
             >
               Welcome back{" "}
               <span
-                style={{
-                  fontFamily: "Tilt Warp, sans-serif",
-                  color: "#5edef4",
-                }}
+                style={{ fontFamily: "Tilt Warp, sans-serif", color: "#5EDEF4" }}
               >
                 {displayName}
               </span>{" "}
               🎉
             </h2>
             <p className="text-white text-[1.5rem] mb-6 w-[35rem]">
-              Track your health effortlessly. Select a date to log your symptoms
-              and monitor trends over time!
+              Track your health effortlessly. Select a date to log your symptoms and monitor trends over time!
             </p>
-
             <div className="custom-calendar mb-8">
               <Calendar
                 onClickDay={handleDateClick}
@@ -680,8 +654,7 @@ const Tracker = () => {
               />
             </div>
           </div>
-
-          {/* RIGHT SIDEBAR */}
+          {/* Right Sidebar */}
           <div
             className="w-[26rem] bg-[#121212] rounded-lg p-4 text-white"
             style={{ marginLeft: "auto" }}
@@ -692,7 +665,6 @@ const Tracker = () => {
             >
               Health Insights
             </h2>
-
             <div className="mb-6">
               <p
                 style={{ fontFamily: "Inter, sans-serif" }}
@@ -710,7 +682,6 @@ const Tracker = () => {
                 Fatigue and headaches can often be signs of dehydration.
               </p>
             </div>
-
             <div className="mb-6">
               <p
                 style={{ fontFamily: "Inter, sans-serif" }}
@@ -727,7 +698,6 @@ const Tracker = () => {
                 <li>Nausea (Today)</li>
               </ul>
             </div>
-
             <div className="mb-6">
               <p
                 style={{ fontFamily: "Inter, sans-serif" }}
@@ -743,7 +713,6 @@ const Tracker = () => {
                 <li>Fatigue (7 times this month)</li>
               </ul>
             </div>
-
             <div className="mb-6 h-[250px] bg-[#1e1e1e] rounded p-2">
               {chartData && chartOptions ? (
                 <div className="h-full">
@@ -753,7 +722,6 @@ const Tracker = () => {
                 <p className="text-center mt-8">Loading chart...</p>
               )}
             </div>
-
             <div className="flex justify-center">
               <button
                 onClick={handleGenerateReport}
@@ -774,7 +742,6 @@ const Tracker = () => {
             <h2 className="text-xl font-semibold mb-4">
               Log Symptoms for {selectedDate.toDateString()}
             </h2>
-
             {/* Headaches */}
             <div className="mb-3">
               <label className="block font-medium">Headaches</label>
@@ -790,7 +757,6 @@ const Tracker = () => {
                 <option value={4}>Debilitating Headache</option>
               </select>
             </div>
-
             {/* Cognitive & Mental Changes */}
             <div className="mb-3">
               <label className="block font-medium">
@@ -810,7 +776,6 @@ const Tracker = () => {
                 <option value={4}>Disoriented</option>
               </select>
             </div>
-
             {/* Vision & Eye Changes */}
             <div className="mb-3">
               <label className="block font-medium">Vision & Eye Changes</label>
@@ -826,7 +791,6 @@ const Tracker = () => {
                 <option value={4}>Significant Vision Loss</option>
               </select>
             </div>
-
             {/* Motor Function & Balance */}
             <div className="mb-3">
               <label className="block font-medium">Motor Function & Balance</label>
@@ -842,7 +806,6 @@ const Tracker = () => {
                 <option value={4}>Severe Coordination Loss</option>
               </select>
             </div>
-
             {/* Speech & Communication */}
             <div className="mb-3">
               <label className="block font-medium">Speech & Communication</label>
@@ -858,7 +821,6 @@ const Tracker = () => {
                 <option value={4}>Loss of Speech</option>
               </select>
             </div>
-
             {/* Seizures & Muscle Movements */}
             <div className="mb-3">
               <label className="block font-medium">Seizures & Muscle Movements</label>
@@ -874,7 +836,6 @@ const Tracker = () => {
                 <option value={4}>Critical Seizure</option>
               </select>
             </div>
-
             {/* Nausea & Vomiting */}
             <div className="mb-3">
               <label className="block font-medium">Nausea & Vomiting</label>
@@ -890,7 +851,6 @@ const Tracker = () => {
                 <option value={4}>Severe Vomiting</option>
               </select>
             </div>
-
             <div className="mt-4 flex gap-3">
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -909,7 +869,7 @@ const Tracker = () => {
         </div>
       )}
 
-      {/* Custom Calendar Styles */}
+      {/* Calendar Styles */}
       <style jsx global>{`
         .custom-calendar .react-calendar {
           width: 50rem;
@@ -921,54 +881,139 @@ const Tracker = () => {
           padding: 1rem;
           border-radius: 1rem;
         }
-        .react-calendar__navigation button {
+
+        /* Navigation styling */
+        .react-calendar__navigation button,
+        .react-calendar__navigation__label {
           color: #fff;
+          background: none;
+          border: none;
+          cursor: pointer;
           font-weight: bold;
         }
-        .react-calendar__navigation button .react-calendar__navigation__arrow {
-          fill: #fff;
+        .react-calendar__navigation button:hover,
+        .react-calendar__navigation button:active,
+        .react-calendar__navigation button:focus,
+        .react-calendar__navigation__label:hover,
+        .react-calendar__navigation__label:active,
+        .react-calendar__navigation__label:focus {
+          background: none !important;
+          outline: none;
         }
+
+        /* Selection views (months/years) */
+        .react-calendar__year-view__months .react-calendar__tile abbr,
+        .react-calendar__decade-view__years .react-calendar__tile abbr,
+        .react-calendar__century-view__decades .react-calendar__tile abbr {
+          display: inline;
+          background: none !important;
+          border-radius: 0 !important;
+          width: auto !important;
+          height: auto !important;
+          line-height: normal !important;
+          color: #fff !important;
+          font-weight: normal !important;
+        }
+        .react-calendar__year-view__months .react-calendar__tile:hover abbr,
+        .react-calendar__decade-view__years .react-calendar__tile:hover abbr,
+        .react-calendar__century-view__decades .react-calendar__tile:hover abbr {
+          background: none !important;
+          border-radius: 0 !important;
+          width: auto !important;
+          height: auto !important;
+          line-height: normal !important;
+          color: #fff !important;
+        }
+        .react-calendar__year-view__months .react-calendar__tile--active abbr,
+        .react-calendar__decade-view__years .react-calendar__tile--active abbr,
+        .react-calendar__century-view__decades .react-calendar__tile--active abbr {
+          background: none !important;
+          border-radius: 0 !important;
+          display: inline !important;
+          width: auto !important;
+          height: auto !important;
+          line-height: normal !important;
+          color: #fff !important;
+        }
+
+        /* Weekday labels */
         .react-calendar__month-view__weekdays__weekday abbr {
           text-decoration: none;
           color: #5edef4;
           font-weight: normal;
         }
-        .react-calendar__tile {
+
+        /* Month view */
+        /* Default day numbers */
+        .react-calendar__month-view__days__day abbr {
           color: #fff;
         }
-        .react-calendar__month-view__days__day--neighboringMonth {
+          
+        .react-calendar__month-view__days__day--neighboringMonth abbr {
           color: #707070;
         }
-        .react-calendar__tile:hover {
+          
+        .react-calendar__tile:hover,
+        .react-calendar__tile--now,
+        .react-calendar__tile--active {
+          background: none !important;
+        }
+          
+        .react-calendar__month-view__days__day:hover abbr {
+          position: relative;
+          z-index: 1;
+          transition: background 0.2s;
+          color: #000;
+        }
+
+        .react-calendar__month-view__days__day:hover abbr::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 3rem;
+          height: 3rem;
           border-radius: 50%;
           background: #5edef4;
-          color: #121418;
+          z-index: -1;
         }
+
+        /* Current day */
         .react-calendar__tile--now {
-          background: none;
+          position: relative;
+        }
+        .react-calendar__tile--now::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          background: #5edef4;
+          z-index: 0;
         }
         .react-calendar__tile--now abbr {
+          position: relative;
+          z-index: 1;
+          color: #000;
+        }
+
+        /* Active/selected day */
+        .react-calendar__month-view__days__day--active abbr {
           display: inline-block;
           width: 3rem;
-          height: 2.5rem;
-          border-radius: 50%;
-          background: #5edef4;
-          color: #121418;
-          text-align: center;
-        }
-        .react-calendar__tile--active {
-          background: none;
-        }
-        .react-calendar__tile--active abbr {
-          display: inline-block;
-          width: 1.5rem;
-          height: 1rem;
-          line-height: 1rem;
+          height: 3rem;
+          line-height: 3rem;
           border-radius: 50%;
           background: #2a2d30;
           color: #fff;
           text-align: center;
         }
+
+        /* logged-symptom underline */
         .symptom-day {
           border-bottom: 3px solid #5edef4;
         }
