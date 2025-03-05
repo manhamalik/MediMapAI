@@ -3,11 +3,9 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
 const NavBar = () => {
-  // Destructure the properties as they exist in your AuthContext
   const { currentUser, userData, logout, loading } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Optional: show a quick loading state if needed
   if (loading) {
     return (
       <nav className="bg-black text-white py-4 px-6 flex justify-between items-center">
@@ -16,7 +14,6 @@ const NavBar = () => {
     );
   }
 
-  // Use first & last name if available; otherwise fallback to currentUser.email
   const displayName =
     userData?.firstName && userData?.lastName
       ? `${userData.firstName} ${userData.lastName}`
@@ -24,8 +21,8 @@ const NavBar = () => {
 
   return (
     <nav
-      style={{ fontFamily: "Noto Sans, sans-serif" }}
-      className="bg-black text-white py-4 px-6 flex justify-between items-center z-[1000] sticky top-0 font-semibold"
+      style={{ fontFamily: "Noto Sans Multani, sans-serif" }}
+      className="bg-black text-white py-4 px-6 flex justify-between items-center z-[1000] sticky top-0 font-bold"
     >
       {/* Logo */}
       <Link href="/">
